@@ -132,7 +132,7 @@ Note: Create a new project. Create your Utility class and add all the methods yo
         WebElement languagesBox = driver.findElement(By.id("default-locale-field"));
         Select select = new Select(languagesBox);
         select.selectByIndex((int)(Math.random()*5)+1);
-        List<WebElement> languagesList = driver.findElements(By.cssSelector("input[type='checkbox']"));
+        List<WebElement> languagesList = driver.findElements(By.cssSelector("input[type='checkbox']"));   //we create languageLest here ! 
         System.out.println("validation of step 14");
         for (WebElement language:languagesList) {
             language.click();
@@ -147,11 +147,11 @@ Note: Create a new project. Create your Utility class and add all the methods yo
         System.out.println("validation of step 15");
         for (WebElement language:languagesList) {
             if (language.isSelected()){
-                System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());
+                System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());  //verification here isSelected! 
 
-            }else {
-            language.click();
-                System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());
+            }else {.                                                                                                  //if its not selected! 
+            language.click();                                                                                         //click on it! 
+                System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());    //and verify it if selected! 
             }
         }
         System.out.println("-".repeat(50));
