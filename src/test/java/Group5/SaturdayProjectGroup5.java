@@ -50,6 +50,7 @@ Note: Create a new project. Create your Utility class and add all the methods yo
         } else {
             System.out.println("Step 2 is Failed");
         }
+        System.out.println("-".repeat(50));
 //        logIn.sendKeys("Admin" + Keys.TAB + "Admin123");
         List<WebElement> locationsList = driver.findElements(By.cssSelector("#sessionLocation>li"));
         List<String> locationsNamesOnLogin = new ArrayList<>();
@@ -74,84 +75,96 @@ Note: Create a new project. Create your Utility class and add all the methods yo
             }
         }
 
-        locationsList.get((int)(Math.random()*6)).click();
+        locationsList.get((int) (Math.random() * 6)).click();
         WebElement loginButton = driver.findElement(By.id("loginButton"));
         loginButton.click();
         WebElement locationButton = driver.findElement(By.id("selected-location"));
         locationButton.click();
         List<WebElement> locationsAfterLogIn = driver.findElements(By.cssSelector(".select>li"));
         List<String> locationsNamesAfterLogin = new ArrayList<>();
-        for (WebElement location:locationsAfterLogIn) {
+        for (WebElement location : locationsAfterLogIn) {
             locationsNamesAfterLogin.add(location.getText());
         }
         System.out.println("-".repeat(50));
         int count = 1;
-        for (String location:locationsNamesOnLogin) {
-            if (locationsNamesAfterLogin.contains(location)){
-                System.out.println("Step 7 for location "+count+" is Passed");
+        for (String location : locationsNamesOnLogin) {
+            if (locationsNamesAfterLogin.contains(location)) {
+                System.out.println("Step 7 for location " + count + " is Passed");
                 count++;
             }
         }
-        Action navigateRegDesk = actions.moveToElement(locationsAfterLogIn.get(5)).build();
-        navigateRegDesk.perform();
-        Action navigateOther = actions.moveToElement(driver.findElement(By.id("coreapps-systemadministration-homepageLink-coreapps-systemadministration-homepageLink-extension"))).build();
-        navigateOther.perform();
+        String currentTemporaryLocation = "";
+        String currentLocation = "";
+        WebElement temporary;
+        for (int i = 1; i <= locationsAfterLogIn.size(); i++) {
+            driver.findElement(By.id("selected-location")).click();
+            temporary = driver.findElement(By.xpath("(//ul[@class='select']/li)[" + i + "]"));
+            currentTemporaryLocation = temporary.getText();
+            temporary.click();
+            driver.navigate().refresh();
+            currentLocation = driver.findElement(By.tagName("h4")).getText();
+            if (currentLocation.endsWith(currentTemporaryLocation + ".")) {
+                System.out.println("After clicking on " + currentTemporaryLocation + " the current location changed to " + currentTemporaryLocation);
+            } else {
+                System.out.println("After clicking on " + currentTemporaryLocation + " the current location didn't change to " + currentTemporaryLocation);
+            }
+        }
 
         System.out.println("-".repeat(50));
         WebElement adminMenu = driver.findElement(By.cssSelector(".nav-item.identifier"));
-//        actions.moveToElement(adminMenu).perform();
-        if (adminMenu.isDisplayed()){
+
+        if (adminMenu.isDisplayed()) {
             System.out.println("Step 8 is Passed");
-        }else {
+        } else {
             System.out.println("Step 8 is Failed");
         }
         System.out.println("-".repeat(50));
         actions.moveToElement(adminMenu).perform();
         WebElement myAccount = driver.findElement(By.partialLinkText("My Account"));
-        if (myAccount.isDisplayed()){
+        if (myAccount.isDisplayed()) {
             System.out.println("Step 9 is Passed");
-        }else {
+        } else {
             System.out.println("Step 9 is Failed");
         }
         System.out.println("-".repeat(50));
         myAccount.click();
-        if (driver.getTitle().equals("My Account")){
+        if (driver.getTitle().equals("My Account")) {
             System.out.println("Step 10 is Passed");
-        }else {
+        } else {
             System.out.println("Step 10 is Failed");
         }
         System.out.println("-".repeat(50));
         WebElement languages = driver.findElement(By.cssSelector(".task>.icon-cog"));
         languages.click();
-        if (driver.getTitle().equals("My Languages")){
+        if (driver.getTitle().equals("My Languages")) {
             System.out.println("Step 12 is Passed");
-        }else {
+        } else {
             System.out.println("Step 12 is Failed");
         }
         System.out.println("-".repeat(50));
         WebElement languagesBox = driver.findElement(By.id("default-locale-field"));
         Select select = new Select(languagesBox);
-        select.selectByIndex((int)(Math.random()*5)+1);
+        select.selectByIndex((int) (Math.random() * 5) + 1);
         List<WebElement> languagesList = driver.findElements(By.cssSelector("input[type='checkbox']"));
         System.out.println("validation of step 14");
-        for (WebElement language:languagesList) {
+        for (WebElement language : languagesList) {
             language.click();
-            System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());
-            }
+            System.out.println(language.getAttribute("value") + " language is selected: " + language.isSelected());
+        }
         System.out.println("-".repeat(50));
-        for (WebElement language:languagesList) {
+        for (WebElement language : languagesList) {
             language.click();
-            System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());
+            System.out.println(language.getAttribute("value") + " language is selected: " + language.isSelected());
         }
         System.out.println("-".repeat(50));
         System.out.println("validation of step 15");
-        for (WebElement language:languagesList) {
-            if (language.isSelected()){
-                System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());
+        for (WebElement language : languagesList) {
+            if (language.isSelected()) {
+                System.out.println(language.getAttribute("value") + " language is selected: " + language.isSelected());
 
-            }else {
-            language.click();
-                System.out.println(language.getAttribute("value")+" language is selected: "+language.isSelected());
+            } else {
+                language.click();
+                System.out.println(language.getAttribute("value") + " language is selected: " + language.isSelected());
             }
         }
         System.out.println("-".repeat(50));
@@ -160,14 +173,13 @@ Note: Create a new project. Create your Utility class and add all the methods yo
         WebElement errorMessage = driver.findElement(By.xpath("//p[text()='User defaults could not be updated.']"));
 
         String actualResult = errorMessage.getText();
-        
+
         String expectedResult = "User defaults could not be updated.";
-        if (actualResult.equals(expectedResult)){
+        if (actualResult.equals(expectedResult)) {
             System.out.println("Step 16 is Passed");
-        }else {
+        } else {
             System.out.println("Step 16 is Failed");
         }
-
 
 
         quitDriver(4);
