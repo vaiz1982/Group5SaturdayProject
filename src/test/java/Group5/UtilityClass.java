@@ -14,6 +14,7 @@ public class UtilityClass {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
     }
     public static void quitDriver(int time) {
         try {
@@ -22,5 +23,12 @@ public class UtilityClass {
             throw new RuntimeException(e);
         }
         driver.quit();
+    }
+    public static void Wait(double time) {
+        try {
+            Thread.sleep((int) (time*1000));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
