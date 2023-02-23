@@ -65,6 +65,7 @@ public class AslanbekLocationInHomePage extends UtilityClass{
             }
         }
         System.out.println("-".repeat(50));
+        System.out.println("-".repeat(50));
         quitDriver(3);
     }
 }
