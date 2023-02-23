@@ -113,6 +113,7 @@ Note: Create a new project. Create your Utility class and add all the methods yo
         System.out.println("-".repeat(50));
         WebElement adminMenu = driver.findElement(By.cssSelector(".nav-item.identifier"));
 
+
         if (adminMenu.isDisplayed()) {
             System.out.println("Step 8 is Passed");
         } else {
