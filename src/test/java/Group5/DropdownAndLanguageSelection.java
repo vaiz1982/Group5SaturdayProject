@@ -30,7 +30,7 @@ public class DropdownAndLanguageSelection extends UtilityClass {
         Select select = new Select(languagesBox);
         select.selectByIndex((int) (Math.random() * 5) + 1);
         List<WebElement> languagesList = driver.findElements(By.cssSelector("input[type='checkbox']"));
-        System.out.println("validation of step 14");
+        System.out.println("validation of dropdown menu");
 
         for (WebElement language : languagesList) {
             language.click();
@@ -42,7 +42,7 @@ public class DropdownAndLanguageSelection extends UtilityClass {
             System.out.println(language.getAttribute("value") + " language is selected: " + language.isSelected());
         }
         System.out.println("-".repeat(50));
-        System.out.println("validation of step 15");
+        System.out.println("Validation of language selection:");
         for (WebElement language : languagesList) {
             if (language.isSelected()) {
                 System.out.println(language.getAttribute("value") + " language is selected: " + language.isSelected());
@@ -55,12 +55,22 @@ public class DropdownAndLanguageSelection extends UtilityClass {
 
         System.out.println("-".repeat(50));
 
-//Error message script to be added
+        WebElement saveButton = driver.findElement(By.cssSelector("input[type='submit']"));
+        saveButton.click();
+        WebElement errorMessage = driver.findElement(By.xpath("//p[text()='User defaults could not be updated.']"));
+
+        String actualResult = errorMessage.getText();
+
+        String expectedResult = "User defaults could not be updated.";
+        if (actualResult.equals(expectedResult)) {
+            System.out.println("Passed: Error message is displayed.");
+        } else {
+            System.out.println("Failed: Unexpected / undisplayed error message.");
 
 
-        quitDriver(4);
+            quitDriver(4);
 
 
-
+        }
     }
 }
