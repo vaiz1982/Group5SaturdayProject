@@ -40,6 +40,7 @@ public class SaturdayProjectGroup5 extends UtilityClass {
 Note: Create a new project. Create your Utility class and add all the methods you need
 	including hard wait incase you need.*/
     public static void main(String[] args) throws InterruptedException {
+
         driver.get("https://demo.openmrs.org/openmrs/login.htm");
         WebElement logIn = driver.findElement(By.id("username"));
         logIn.sendKeys("Admin" + Keys.TAB + "Admin123" + Keys.ENTER);
