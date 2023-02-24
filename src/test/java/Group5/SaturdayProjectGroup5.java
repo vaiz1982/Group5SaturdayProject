@@ -38,7 +38,7 @@ public class SaturdayProjectGroup5 extends UtilityClass {
     displayed.
 
 Note: Create a new project. Create your Utility class and add all the methods you need
-	including hard wait in case you need.*/
+	including hard wait incase you need.*/
     public static void main(String[] args) throws InterruptedException {
         driver.get("https://demo.openmrs.org/openmrs/login.htm");
         WebElement logIn = driver.findElement(By.id("username"));
@@ -113,7 +113,6 @@ Note: Create a new project. Create your Utility class and add all the methods yo
         System.out.println("-".repeat(50));
         WebElement adminMenu = driver.findElement(By.cssSelector(".nav-item.identifier"));
 
-        // Yusuf Akcil's code part
 
         if (adminMenu.isDisplayed()) {
             System.out.println("Step 8 is Passed");
